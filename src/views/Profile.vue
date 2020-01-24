@@ -28,7 +28,53 @@
         </v-col>
     </v-row>
 
-    ОСТАЛЬНОЕ СОДЕРЖИМОЕ СТРАНИЦЫ
+    <v-divider></v-divider>
+
+    <div v-if="posts">
+    <v-container class="text-left" fluid>
+    <v-card
+    style="margin: 25px;" 
+    width="60vw"
+    v-for="post in posts" :key="post.id"
+    >
+    <v-list-item>
+      <v-list-item-avatar color="grey">
+          <v-img :src="`https://randomuser.me/api/portraits/men/${profile.id}.jpg`"></v-img>
+      </v-list-item-avatar>
+      <v-list-item-content>
+        <v-list-item-title class="headline">{{post.title}}</v-list-item-title>
+        <v-list-item-subtitle>by {{profile.name}}</v-list-item-subtitle>
+      </v-list-item-content>
+    </v-list-item>
+
+    <v-card-text style="margin-left: 10px">
+      {{post.body}}
+    </v-card-text>
+
+    <v-card-actions>
+      <v-btn
+        text
+        color="deep-purple accent-4"
+      >
+        Read
+      </v-btn>
+      <v-btn
+        text
+        color="deep-purple accent-4"
+      >
+        Bookmark
+      </v-btn>
+      <v-spacer></v-spacer>
+      <v-btn icon>
+        <v-icon>mdi-heart</v-icon>
+      </v-btn>
+      <v-btn icon>
+        <v-icon>mdi-share-variant</v-icon>
+      </v-btn>
+    </v-card-actions>
+    </v-card>
+    </v-container>
+    </div>
 </div>
 </template>
 <script>

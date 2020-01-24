@@ -3,7 +3,7 @@
     <v-container class="fill-height" fluid>
       <v-card v-for="profile in profiles" :key="profile.id" style="margin: 10px;" width="40vw" hover>
         <v-list-item dense>
-          <v-list-item-avatar size="150">
+          <v-list-item-avatar size="150" color="grey">
             <v-img :src="`https://randomuser.me/api/portraits/men/${profile.id}.jpg`"></v-img>
           </v-list-item-avatar>
 
