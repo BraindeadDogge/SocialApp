@@ -1,5 +1,13 @@
 <template>
 <div v-if="profiles">
+    <v-row style="margin-left: 15px;" class="text-left">
+        <v-col cols="10">
+            <h1 class="green--text text--darken-2">
+                <v-icon large color="green darken-2">mdi-fingerprint</v-icon>
+                Users
+            </h1>
+        </v-col>
+    </v-row>
     <v-container class="fill-height" fluid>
       <v-card v-for="profile in profiles" :key="profile.id" style="margin: 10px;" width="40vw" hover>
         <v-list-item dense>

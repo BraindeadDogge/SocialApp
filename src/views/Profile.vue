@@ -1,6 +1,6 @@
 <template>
 <div v-if="profile">
-    <v-row class="text-left">
+    <v-row style="margin-left: 15px;" class="text-left">
         <v-col cols="10">
             <h1 class="green--text text--darken-2">
                 <v-icon large color="green darken-2">mdi-account-outline</v-icon>
@@ -8,7 +8,7 @@
             </h1>
         </v-col>
     </v-row>
-    <v-row class="text-left">
+    <v-row style="margin-left: 20px;" class="text-left">
         <v-col cols="2">
             <img :src="`https://randomuser.me/api/portraits/men/${profile.id}.jpg`" style="max-width: 100%">
         </v-col>

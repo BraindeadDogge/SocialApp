@@ -13,11 +13,11 @@
           dense>
         <v-list-item two-line>
           <v-list-item-avatar>
-            <img src="https://randomuser.me/api/portraits/women/1.jpg" alt="мужчина">
+            <img src="https://randomuser.me/api/portraits/men/17.jpg" alt="мужчина">
           </v-list-item-avatar>
           <v-list-item-content class="text-left">
-            <v-list-item-title class="font-weight-black">SocialLink</v-list-item-title>
-            <v-list-item-subtitle>Petr</v-list-item-subtitle>
+            <v-list-item-title class="font-weight-black">SocialWeb</v-list-item-title>
+            <v-list-item-subtitle>Ivan Ivanich</v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
         <v-divider class="my-3"></v-divider>  
@@ -49,12 +49,12 @@ export default {
     return {
       links: [
         {
-          label: 'Главная',
+          label: 'Main',
           path: '/',
           icon: 'mdi-home-outline'
         },
         {
-          label: 'Пользователи',
+          label: 'Users',
           path: '/users',
           icon: 'mdi-fingerprint'
         },
