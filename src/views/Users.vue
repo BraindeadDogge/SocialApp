@@ -12,7 +12,7 @@
       <v-card v-for="profile in profiles" :key="profile.id" style="margin: 10px;" width="40vw" hover>
         <v-list-item dense>
           <v-list-item-avatar size="150" color="grey">
-            <v-img :src="`https://randomuser.me/api/portraits/men/${profile.id}.jpg`"></v-img>
+            <v-img :src="profile.photo"></v-img>
           </v-list-item-avatar>
 
           <v-list-item-content>
@@ -39,7 +39,7 @@ export default {
         $route: {
             handler(){
                 console.log("i'm ready")
-                this.$axios.get('http://jsonplaceholder.typicode.com/users/')
+                this.$axios.get('http://188.225.47.187/api/jsonstorage/230a2ba25dd93eadc4d15a3a8c57cd92')
                 .then(response=>{
                     console.log('response', response.data)
                     this.profiles = response.data

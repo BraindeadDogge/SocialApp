@@ -10,7 +10,7 @@
     </v-row>
     <v-row style="margin-left: 20px;" class="text-left">
         <v-col cols="2">
-            <img :src="`https://randomuser.me/api/portraits/men/${profile.id}.jpg`" style="max-width: 100%">
+            <img :src="profile.photo" style="max-width: 100%">
         </v-col>
         <v-col cols="10" class="text-left">
             <p>
@@ -39,7 +39,7 @@
     >
     <v-list-item>
       <v-list-item-avatar color="grey">
-          <v-img :src="`https://randomuser.me/api/portraits/men/${profile.id}.jpg`"></v-img>
+          <v-img :src="profile.photo"></v-img>
       </v-list-item-avatar>
       <v-list-item-content>
         <v-list-item-title class="headline">{{post.title}}</v-list-item-title>
@@ -89,10 +89,14 @@ export default {
         $route: {
             handler(){
                 console.log("i'm ready")
-                this.$axios.get('http://jsonplaceholder.typicode.com/users/'+ this.$route.params.id)
+                this.$axios.get('http://188.225.47.187/api/jsonstorage/230a2ba25dd93eadc4d15a3a8c57cd92')
                 .then(response=>{
                     console.log('response', response.data)
                     this.profile = response.data
+                    for(let index in this.profile) {
+                      if(this.profile[index].id === this.$route.params.id)
+                        this.profile = this.profile[index] 
+                    }
                 })
                 this.$axios.get('http://jsonplaceholder.typicode.com/posts?userId='+ this.$route.params.id)
                 .then(response=>{

@@ -13,11 +13,11 @@
           dense>
         <v-list-item two-line>
           <v-list-item-avatar>
-            <img src="https://randomuser.me/api/portraits/men/17.jpg" alt="мужчина">
+            <img :src="user.photoURL" alt="мужчина">
           </v-list-item-avatar>
           <v-list-item-content class="text-left">
             <v-list-item-title class="font-weight-black">SocialWeb</v-list-item-title>
-            <v-list-item-subtitle>Ivan Ivanich</v-list-item-subtitle>
+            <v-list-item-subtitle>{{user.name}}</v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
         <v-divider class="my-3"></v-divider>  
@@ -38,7 +38,7 @@
     </v-navigation-drawer>
     <v-content class="px-12 py-3">
       <v-container fluid>
-        <router-view/>
+        <router-view v-on:login="updateUser"/>
       </v-container>
     </v-content>
   </v-app>
@@ -63,7 +63,11 @@ export default {
         //   path: '/profile',
         //   icon: 'mdi-face'
         // },
-      ]
+      ],
+      user: {
+        name: "Undefined",
+        photoURL: "https://infokava.com/uploads/posts/2017-05/1495025256_1444399930_image.jpeg"
+      }
     }
   }
 }
