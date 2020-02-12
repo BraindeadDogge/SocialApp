@@ -27,7 +27,7 @@
             </p>
               <v-dialog v-model="dialog" scrollable max-width="600px" v-if="myId == $route.params.id">
                 <template v-slot:activator="{ on }">
-                  <v-btn color="primary" dark v-on="on">New Post</v-btn>
+                  <v-btn color="green darken-2" dark v-on="on">New Post</v-btn>
                 </template>
                 <v-card>
                   <v-card-title>
@@ -158,14 +158,11 @@ export default {
               likes: 0
             }
 
-            posts.push(newPost);
-
+            posts.unshift(newPost);
             this.axios.put('http://188.225.47.187/api/jsonstorage/5b243f6a9bf277187d03d9af1405685e', posts)
-            this.posts = "";
-            for(let index of posts) {
-              if(index.userId == this.$route.params.id)
-                this.posts.push(index)
-            }
+            this.posts.unshift(newPost);     
+            this.title = '';
+            this.text = '';
         })
       }
     }
