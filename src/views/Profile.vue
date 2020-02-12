@@ -1,5 +1,5 @@
 <template>
-<div>
+<div v-if="profile">
     <v-row style="margin-left: 15px;" class="text-left">
         <v-col cols="10">
             <h1 class="green--text text--darken-2">
@@ -14,7 +14,7 @@
         </v-col>
         <v-col cols="10" class="text-left">
             <p>
-                Веб-сайт: <a :href="profile.website" target="_blank">{{profile.website}}</a>
+                Веб-сайт: <a :href="`https://${profile.website}`" target="_blank">{{profile.website}}</a>
             </p>
             <p>
                 E-mail: <a :href="`mailto:${profile.email}`">{{profile.email}}</a>
@@ -25,6 +25,34 @@
             <p>
                 Место работы: {{profile.company.name}}
             </p>
+              <v-dialog v-model="dialog" scrollable max-width="600px" v-if="myId == $route.params.id">
+                <template v-slot:activator="{ on }">
+                  <v-btn color="primary" dark v-on="on">New Post</v-btn>
+                </template>
+                <v-card>
+                  <v-card-title>
+                    <span class="headline">New Post</span>
+                  </v-card-title>
+                  <v-card-text>
+                    <v-container>
+                      <v-row>
+                        <v-col cols="12">
+                          <v-text-field label="Title*" required v-model="title"></v-text-field>
+                        </v-col>
+                        <v-col cols="12">
+                          <v-text-field label="Text*" required v-model="text"></v-text-field>
+                        </v-col>
+                      </v-row>
+                    </v-container>
+                    <small>*indicates required field</small>
+                  </v-card-text>
+                  <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn color="blue darken-1" text @click="dialog = false">Close</v-btn>
+                    <v-btn color="blue darken-1" text @click="newPost(); dialog = false">Add</v-btn>
+                  </v-card-actions>
+                </v-card>
+              </v-dialog>
         </v-col>
     </v-row>
 
@@ -65,6 +93,7 @@
         Bookmark
       </v-btn>
       <v-spacer></v-spacer>
+      <div>{{post.likes}}</div>
       <v-btn icon>
         <v-icon>mdi-heart</v-icon>
       </v-btn>
@@ -79,10 +108,15 @@
 </template>
 <script>
 export default {
+    props: ["myId"],
     data(){
         return {
+            profiles: null,
             profile: null,
-            posts: null,
+            posts: [],
+            dialog: false,
+            title: "",
+            text: "",
         }
     },
     watch: {
@@ -92,22 +126,48 @@ export default {
                 this.$axios.get('http://188.225.47.187/api/jsonstorage/230a2ba25dd93eadc4d15a3a8c57cd92')
                 .then(response=>{
                     console.log('response', response.data)
-                    this.profile = response.data
-                    for(let index in this.profile) {
-                      if(this.profile[index].id == this.$route.params.id) {
-                        this.profile = this.profile[index] 
+                    this.profiles = response.data
+                    for(let index in this.profiles) {
+                      if(this.profiles[index].id == this.$route.params.id) {
+                        this.profile = this.profiles[index] 
                         console.log("profile", this.profile)
                       }
                     }
                 })
-                this.$axios.get('http://jsonplaceholder.typicode.com/posts?userId='+ this.$route.params.id)
+                this.$axios.get('http://188.225.47.187/api/jsonstorage/5b243f6a9bf277187d03d9af1405685e')
                 .then(response=>{
                     console.log('response', response.data)
-                    this.posts = response.data
+                    for(let index of response.data) {
+                      if(index.userId == this.$route.params.id)
+                        this.posts.push(index)
+                    }
                 })
             },
             immediate: true,
         }
+    },
+    methods: {
+      newPost() {
+        this.axios.get("http://188.225.47.187/api/jsonstorage/5b243f6a9bf277187d03d9af1405685e")
+        .then( (response)=>{
+            let posts = response.data;
+            let newPost = {
+              userId: this.myId,
+              title: this.title,
+              body: this.text,
+              likes: 0
+            }
+
+            posts.push(newPost);
+
+            this.axios.put('http://188.225.47.187/api/jsonstorage/5b243f6a9bf277187d03d9af1405685e', posts)
+            this.posts = "";
+            for(let index of posts) {
+              if(index.userId == this.$route.params.id)
+                this.posts.push(index)
+            }
+        })
+      }
     }
 }
 </script>

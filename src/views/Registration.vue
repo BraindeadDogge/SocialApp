@@ -116,7 +116,7 @@ export default {
                                 if(response.data == "ok")
                                     this.$router.push('/login');
                                 else
-                                    window.alert('Что-то пошло не так!');
+                                    window.alert('Что-то пошло не так ;(');
                             } 
                         );
                 } )

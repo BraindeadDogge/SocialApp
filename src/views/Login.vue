@@ -41,7 +41,11 @@ export default {
                 let found = false;
                 for(let index in users) {
                     if(this.login == users[index].username && this.password == users[index].password) {
-                        this.$emit('login', index)
+                        this.$emit('login', {
+                            id: users[index].id,
+                            photoURL: users[index].photo,
+                            name: users[index].name,
+                        })
                         this.$router.push('/profile/' + users[index].id);
                         found = true;
                         break;
