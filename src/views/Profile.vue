@@ -1,5 +1,5 @@
 <template>
-<div v-if="profile">
+<div>
     <v-row style="margin-left: 15px;" class="text-left">
         <v-col cols="10">
             <h1 class="green--text text--darken-2">
@@ -94,8 +94,10 @@ export default {
                     console.log('response', response.data)
                     this.profile = response.data
                     for(let index in this.profile) {
-                      if(this.profile[index].id === this.$route.params.id)
+                      if(this.profile[index].id == this.$route.params.id) {
                         this.profile = this.profile[index] 
+                        console.log("profile", this.profile)
+                      }
                     }
                 })
                 this.$axios.get('http://jsonplaceholder.typicode.com/posts?userId='+ this.$route.params.id)

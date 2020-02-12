@@ -28,7 +28,8 @@
 export default {
     data(){
         return {
-
+            login: '',
+            password: ''
         }
     },
     methods: {
