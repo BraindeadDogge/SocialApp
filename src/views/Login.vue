@@ -15,6 +15,7 @@
                 label="Введите пароль"
                 v-model="password"
                 outlined
+                type="password"
             ></v-text-field>
 
             <v-btn @click="authenticate">

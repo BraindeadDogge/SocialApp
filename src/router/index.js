@@ -5,6 +5,7 @@ import Profile from '../views/Profile.vue'
 import Users from '../views/Users.vue'
 import Login from '../views/Login.vue'
 import Registration from '../views/Registration.vue'
+import Bookmarks from '../views/Bookmarks.vue'
 
 Vue.use(VueRouter)
 
@@ -28,6 +29,10 @@ const routes = [
   {
     path: '/registration',
     component: Registration
+  },
+  {
+    path: '/bookmarks',
+    component: Bookmarks
   }
 ]
 

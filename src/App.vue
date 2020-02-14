@@ -51,6 +51,14 @@
               <v-list-item-title class="text-left">Users</v-list-item-title>            
             </v-list-item-content>
           </v-list-item>
+          <v-list-item link to="/bookmarks" exact>
+            <v-list-item-icon>
+              <v-icon>mdi-book-outline</v-icon>
+            </v-list-item-icon>
+            <v-list-item-content>
+              <v-list-item-title class="text-left">Your Bookmarks</v-list-item-title>            
+            </v-list-item-content>
+          </v-list-item>
 
           <v-divider class="my-3"></v-divider>
 

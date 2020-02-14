@@ -83,22 +83,14 @@
       <v-btn
         text
         color="deep-purple accent-4"
+        @click="aBook(post.id)"
       >
-        Read
-      </v-btn>
-      <v-btn
-        text
-        color="deep-purple accent-4"
-      >
-        Bookmark
+        Add to Bookmarks
       </v-btn>
       <v-spacer></v-spacer>
       <div>{{post.likes}}</div>
-      <v-btn icon>
+      <v-btn icon @click="like(post.id)">
         <v-icon>mdi-heart</v-icon>
-      </v-btn>
-      <v-btn icon>
-        <v-icon>mdi-share-variant</v-icon>
       </v-btn>
     </v-card-actions>
     </v-card>
@@ -153,16 +145,70 @@ export default {
             let posts = response.data;
             let newPost = {
               userId: this.myId,
+              id: posts.length + 1,
               title: this.title,
               body: this.text,
               likes: 0
             }
 
             posts.unshift(newPost);
+            // posts=[{"userId":2,"id":2,"title":"Заявление от настоящего Марка Цукерберга","body":"Я не люблю фейсбук","likes":0,"whoLiked":[],"whoAdded":[1]},{"userId":1,"id":1,"title":"Я админ","body":"Да, я админ","likes":0,"whoLiked":[],"whoAdded":[1]}]
             this.axios.put('http://188.225.47.187/api/jsonstorage/5b243f6a9bf277187d03d9af1405685e', posts)
             this.posts.unshift(newPost);     
             this.title = '';
             this.text = '';
+        })
+      },
+      like(e) {
+        this.axios.get("http://188.225.47.187/api/jsonstorage/5b243f6a9bf277187d03d9af1405685e")
+        .then( (response)=>{
+          let posts = response.data;
+          let num = false;
+          if(this.myId != '') {
+            for(let index in posts) {
+              if(posts[index].id == e) {
+                for(let i in posts[index].whoLiked) {
+                  if(posts[index].whoLiked[i] == this.myId) {
+                    posts[index].likes--;
+                    posts[index].whoLiked.splice(i, 1);
+                    num = true;
+                  }
+                }
+                if(!num) {
+                  posts[index].whoLiked.push(this.myId);
+                  posts[index].likes++;
+                }
+              }
+            }
+            for(let index in this.posts) {
+              for(let i in posts) {
+                if(this.posts[index].id == posts[i].id) {
+                  this.posts[index].likes = posts[i].likes;
+                }
+              }
+            }
+            this.axios.put('http://188.225.47.187/api/jsonstorage/5b243f6a9bf277187d03d9af1405685e', posts)
+          }
+          else{
+            window.alert('Сначала войдите в аккаунт')
+          }
+        })
+      },
+      aBook(e) {
+        this.axios.get("http://188.225.47.187/api/jsonstorage/5b243f6a9bf277187d03d9af1405685e")
+        .then( (response)=>{
+          let posts = response.data;
+          if(this.myId != '') {
+            for(let index in posts) {
+              if(posts[index].id == e) {
+                posts[index].whoAdded.push(this.myId)
+              }
+            }
+            this.axios.put('http://188.225.47.187/api/jsonstorage/5b243f6a9bf277187d03d9af1405685e', posts)
+          }
+          else{
+            window.alert('Сначала войдите в аккаунт')
+          }
         })
       }
     }
