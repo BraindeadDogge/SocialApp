@@ -87,7 +87,7 @@ export default {
 
         register(){
             // Делаем запрос на сервер для получения списка всех пользователей
-            this.axios.get("http://188.225.47.187/api/jsonstorage/230a2ba25dd93eadc4d15a3a8c57cd92")
+            this.axios.get("https://api.myjson.com/bins/8vhwg")
                 .then( (response)=>{
                     // Это список всех зарегистрированных пользователей
                     let userList = response.data;
@@ -109,7 +109,7 @@ export default {
                     userList.push(newUser);
 
                     // Отправим обновленный массив пользователей на сервер
-                    this.axios.put('http://188.225.47.187/api/jsonstorage/230a2ba25dd93eadc4d15a3a8c57cd92', userList)
+                    this.axios.put("https://api.myjson.com/bins/8vhwg", userList)
                         .then( 
                             (response)=>{
                                 // Если получилось, переводим на страницу входа

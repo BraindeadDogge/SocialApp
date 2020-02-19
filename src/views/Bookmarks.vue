@@ -64,12 +64,12 @@ export default {
       $route: {
         handler(){
           console.log("i'm ready")
-          this.$axios.get('http://188.225.47.187/api/jsonstorage/230a2ba25dd93eadc4d15a3a8c57cd92')
+          this.$axios.get('https://api.myjson.com/bins/8vhwg')
           .then(response=>{
             console.log('response', response.data)
             this.profiles = response.data
           })
-          this.$axios.get('http://188.225.47.187/api/jsonstorage/5b243f6a9bf277187d03d9af1405685e')
+          this.$axios.get('https://api.myjson.com/bins/1bn13k')
           .then(response=>{
             console.log('response', response.data)
             for(let index of response.data)
@@ -83,7 +83,7 @@ export default {
     },
     methods: {
       like(e) {
-        this.axios.get("http://188.225.47.187/api/jsonstorage/5b243f6a9bf277187d03d9af1405685e")
+        this.axios.get("https://api.myjson.com/bins/1bn13k")
         .then( (response)=>{
           let posts = response.data;
           let num = false;
@@ -110,7 +110,7 @@ export default {
                 }
               }
             }
-            this.axios.put('http://188.225.47.187/api/jsonstorage/5b243f6a9bf277187d03d9af1405685e', posts)
+            this.axios.put('https://api.myjson.com/bins/1bn13k', posts)
           }
           else{
             window.alert('Сначала войдите в аккаунт')
@@ -118,7 +118,7 @@ export default {
         })
       },
       dBook(e) {
-        this.axios.get("http://188.225.47.187/api/jsonstorage/5b243f6a9bf277187d03d9af1405685e")
+        this.axios.get("https://api.myjson.com/bins/1bn13k")
         .then( (response)=>{
           let posts = response.data;
           posts[e].whoAdded.forEach((item, index) => {
@@ -127,7 +127,7 @@ export default {
             }
           });
           this.posts.splice(e, 1);
-          this.axios.put('http://188.225.47.187/api/jsonstorage/5b243f6a9bf277187d03d9af1405685e', posts)
+          this.axios.put('https://api.myjson.com/bins/1bn13k', posts)
         })
       }
     }

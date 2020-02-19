@@ -115,7 +115,7 @@ export default {
         $route: {
             handler(){
                 console.log("i'm ready")
-                this.$axios.get('http://188.225.47.187/api/jsonstorage/230a2ba25dd93eadc4d15a3a8c57cd92')
+                this.$axios.get('https://api.myjson.com/bins/8vhwg')
                 .then(response=>{
                     console.log('response', response.data)
                     this.profiles = response.data
@@ -126,7 +126,7 @@ export default {
                       }
                     }
                 })
-                this.$axios.get('http://188.225.47.187/api/jsonstorage/5b243f6a9bf277187d03d9af1405685e')
+                this.$axios.get('https://api.myjson.com/bins/1bn13k')
                 .then(response=>{
                     console.log('response', response.data)
                     for(let index of response.data) {
@@ -140,7 +140,7 @@ export default {
     },
     methods: {
       newPost() {
-        this.axios.get("http://188.225.47.187/api/jsonstorage/5b243f6a9bf277187d03d9af1405685e")
+        this.axios.get("https://api.myjson.com/bins/1bn13k")
         .then( (response)=>{
             let posts = response.data;
             let newPost = {
@@ -148,19 +148,21 @@ export default {
               id: posts.length + 1,
               title: this.title,
               body: this.text,
-              likes: 0
+              likes: 0,
+              whoLiked: [],
+              whoAdded: []
             }
 
             posts.unshift(newPost);
             // posts=[{"userId":2,"id":2,"title":"Заявление от настоящего Марка Цукерберга","body":"Я не люблю фейсбук","likes":0,"whoLiked":[],"whoAdded":[1]},{"userId":1,"id":1,"title":"Я админ","body":"Да, я админ","likes":0,"whoLiked":[],"whoAdded":[1]}]
-            this.axios.put('http://188.225.47.187/api/jsonstorage/5b243f6a9bf277187d03d9af1405685e', posts)
+            this.axios.put('https://api.myjson.com/bins/1bn13k', posts)
             this.posts.unshift(newPost);     
             this.title = '';
             this.text = '';
         })
       },
       like(e) {
-        this.axios.get("http://188.225.47.187/api/jsonstorage/5b243f6a9bf277187d03d9af1405685e")
+        this.axios.get("https://api.myjson.com/bins/1bn13k")
         .then( (response)=>{
           let posts = response.data;
           let num = false;
@@ -187,7 +189,7 @@ export default {
                 }
               }
             }
-            this.axios.put('http://188.225.47.187/api/jsonstorage/5b243f6a9bf277187d03d9af1405685e', posts)
+            this.axios.put('https://api.myjson.com/bins/1bn13k', posts)
           }
           else{
             window.alert('Сначала войдите в аккаунт')
@@ -195,7 +197,7 @@ export default {
         })
       },
       aBook(e) {
-        this.axios.get("http://188.225.47.187/api/jsonstorage/5b243f6a9bf277187d03d9af1405685e")
+        this.axios.get("https://api.myjson.com/bins/1bn13k")
         .then( (response)=>{
           let posts = response.data;
           if(this.myId != '') {
@@ -204,7 +206,7 @@ export default {
                 posts[index].whoAdded.push(this.myId)
               }
             }
-            this.axios.put('http://188.225.47.187/api/jsonstorage/5b243f6a9bf277187d03d9af1405685e', posts)
+            this.axios.put('https://api.myjson.com/bins/1bn13k', posts)
           }
           else{
             window.alert('Сначала войдите в аккаунт')
